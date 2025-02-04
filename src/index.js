@@ -21,6 +21,11 @@ function makeCard(id) {
     const cardImage = document.createElement("img");
     cardImage.classList.add("card--img")
     cardImage.src = data[id].sprites.other["official-artwork"].front_default;
+
+    cardImage.addEventListener("click", function() {
+        cardImage.src = data[id].sprites.other["official-artwork"].front_default;
+    })
+
     card.append(cardImage);
 
     // add stats
@@ -35,6 +40,7 @@ function makeCard(id) {
 
     card.append(cardStats);
 
+    // EXTENSION 1
     // add included games
     const cardGamesHeader = document.createElement("h3");
     cardGamesHeader.innerText = "Games:"
@@ -46,6 +52,23 @@ function makeCard(id) {
     for (let s = 0; s < data[id].game_indices.length; s++) {
         const cardGame = document.createElement("li");
         cardGame.innerText = firstLetterToUpper(data[id].game_indices[s].version.name);
+
+        // EXTENSION 2
+        // toggle between images of each card
+        // press the game of the card to get the corresponding image
+        // press the image itself to revert to the original image
+        cardGame.addEventListener("click", function() {
+            const currentGame = cardGame.innerText;
+
+            for (const [key, value] of Object.entries(data[id].sprites.versions)) {
+                for (const [key2, value2] of Object.entries(value)) {
+                    if (key2.toLowerCase().includes(currentGame.toLowerCase())) {
+                        cardImage.src = data[id].sprites.versions[key][key2]["front_default"];
+                        return;
+                    }
+                }
+            }
+        })
         cardGames.append(cardGame);
     }
 
