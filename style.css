@@ -18,11 +18,21 @@ body {
 
 img {
   max-width: 100%;
+  width: 256px;
 }
 
 h1,
 h2 {
   text-align: center;
+}
+
+ul,
+li {
+  list-style-type: none;
+}
+
+li {
+  padding-bottom: 8px;
 }
 
 .cards {
