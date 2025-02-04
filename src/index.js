@@ -27,13 +27,29 @@ function makeCard(id) {
     const cardStats = document.createElement("ul");
     cardStats.classList.add("card--text");
 
-    for (let s = 0; s < 6; s++) {
+    for (let s = 0; s < data[id].stats.length; s++) {
         const cardStat = document.createElement("li");
         cardStat.innerText = data[id].stats[s].stat.name.toUpperCase() + ": " + data[id].stats[s].base_stat;
         cardStats.append(cardStat);
     }
 
     card.append(cardStats);
+
+    // add included games
+    const cardGamesHeader = document.createElement("h3");
+    cardGamesHeader.innerText = "Games:"
+    card.append(cardGamesHeader);
+
+    const cardGames = document.createElement("ul");
+    cardGames.classList.add("card--text");
+
+    for (let s = 0; s < data[id].game_indices.length; s++) {
+        const cardGame = document.createElement("li");
+        cardGame.innerText = firstLetterToUpper(data[id].game_indices[s].version.name);
+        cardGames.append(cardGame);
+    }
+
+    card.append(cardGames);
 
     cards.append(card);
 }
